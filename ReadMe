@@ -1,0 +1,8 @@
+Individual, Personal Project
+
+Developed website that contains: menu, dish detail and comments, contact information, leadership and awards, etc.
+Created functions that support user login, adding comments, adding feedback, showing featured items.
+Used AngularJS as the architecture of this website. Used JSON-Server to store and distribute data.
+
+PS: Some data is still in this file because I haven't transfered all the data yet.
+Json-server data: github.com/PriscillaLii/conFusion-Data
