@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// MatDialog is a service that enables us to open the component as a dialog component
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { LoginComponent } from '../login/login.component';
 
@@ -15,7 +16,7 @@ export class HeaderComponent implements OnInit {
   }
 
   openLoginForm() {
-    this.dialog.open(LoginComponent, {width: '450px', height: '400px'});
+    this.dialog.open(LoginComponent, {width: '450px', height: '350px'});
   }
 
 }

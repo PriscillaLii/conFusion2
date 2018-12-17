@@ -1,15 +1,22 @@
 <mat-toolbar color="primary">
     Login
   <span class="flex-spacer"></span>
+  <!-- mat-dialog-close is something that the dialogue components supports for us, -->
+  <!-- this attribute which turns this button into a button which when clicked will close this dialogue there -->
+  <!-- &times; display it as a cross on the screen  -->
   <button mat-button mat-dialog-close>&times;</button>
 </mat-toolbar>
 
-<p>{{  user | json}}</p>
-
+<!-- we want the form validation to be taken care of by Angular, but not by the standard HTML form validation -->
 <form novalidate #loginForm="ngForm" (ngSubmit)="onSubmit()">
+  <!-- mat-dialog-content is an area which contains the content of the dialog itself -->
   <mat-dialog-content>
     <p>
+      <!-- mat-form-field enables me to group together a set of form-related elements that I use together -->
       <mat-form-field>
+        <!-- matInput enable us to apply the material design styling for this input. -->
+        <!-- a template-driven form is supported through the ngModel attribute -->
+        <!-- [(ngModel)]="user.username" is the two-way data binding that we are doing between the form element and the corresponding JavaScript code -->
         <input matInput placeholder="Username" type="text" [(ngModel)]="user.username" name="username" #username="ngModel" required>
         <mat-error *ngIf="username.errors?.required">Username is required</mat-error>
       </mat-form-field>
@@ -23,6 +30,8 @@
       </mat-checkbox>
     </p>
   </mat-dialog-content>
+  
+  <!--  dialog actions can contain the buttons that correspond to this dialog -->
   <mat-dialog-actions>
     <span class="flex-spacer"></span>
     <button mat-button mat-dialog-close>Cancle</button>

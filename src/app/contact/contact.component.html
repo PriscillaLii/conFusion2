@@ -25,6 +25,7 @@
         </address>
         <p></p>
         <div>
+          <!-- @angular/raised-button -->
           <a mat-raised-button href="tel:+85212345678"><i class="fa fa-phone"></i> Call</a>
           <a mat-raised-button><i class="fa fa-skype"></i> Skype</a>
           <a mat-raised-button href="mailto:confusion@food.net"><i class="fa fa-envelope-o"></i> Email</a>
@@ -38,10 +39,11 @@
 
   <div fxFlex fxFlexOffset="20px" class="form-size">
     <h3>Send us your feedback</h3>
-
+    <!-- [formGroup]="feedbackForm": tying in this reactive form in the template to the corresponding form model in our typescript file -->
     <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
       <p>
         <mat-form-field class="half-width">
+          <!-- tie this form element to the corresponding properties (feedbackform.firstname) in the form model -->
           <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
           <mat-error *ngIf="formErrors.firstname">{{formErrors.firstname}}</mat-error>
         </mat-form-field>
@@ -53,6 +55,7 @@
 
       <p>
         <mat-form-field class="half-width">
+          <!-- [0-9]* : anything from 0 to 9 for multipal times -->
           <input matInput formControlName="telnum" placeholder="Tel. Number" type="tel" pattern="[0-9]*" required>
           <mat-error *ngIf="formErrors.telnum">{{formErrors.telnum}}</mat-error>
         </mat-form-field>

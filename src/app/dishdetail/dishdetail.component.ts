@@ -2,7 +2,10 @@ import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+// Params gives me access to the router param that are available when I come in
+//  ActivatedRoute service provides me with access to the route here
 import { Params, ActivatedRoute } from '@angular/router';
+// Location enables me to track the locations of my page in the history of my browser. Navigate back from dishdetail
 import { Location } from '@angular/common';
 
 import { Dish } from '../shared/dish'
@@ -96,17 +99,25 @@ export class DishdetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    // when this dish component is initialized, then at this point in the ngOnInit, 
+    // I can go and fetch the information about the specific dish from the Params
     /*const id = +this.route.snapshot.params['id'];
     this.dishservice.getDish(id)
       .subscribe(dish => this.dish = dish);*/
     this.createForm();
 
     this.dishservice.getDishIds()
-      .subscribe(dishIds => this.dishIds = dishIds);
+      .subscribe(dishIds => this.dishIds = dishIds,
+        errmess => this.errMess = <any>errmess);
 
+    // use A.pipe(B) to read stream A, and use informations in A to execute B.
     this.route.params.pipe(
+      //switchMap: transform observable params to another observable dish
+      // take params as parameter and use this param to return a dish
+      // and then subscribe to this dish
       switchMap( (params: Params) => {this.visibility = 'hidden'; return this.dishservice.getDish(+params['id']); }))
-      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); this.visibility='shown';},
+      .subscribe(
+        dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); this.visibility='shown';},
         errmess => this.errMess = <any>errmess );
   }
 
@@ -116,6 +127,8 @@ export class DishdetailComponent implements OnInit {
     this.next = this.dishIds[(index + 1) % this.dishIds.length];
   }
 
+  // make use of the Location service that I've included up here. 
+  // The Location service provides a method called Back that allows me to go back into the previous item in the browser history.
   goBack(): void {
     this.location.back();
   }
@@ -124,8 +137,15 @@ export class DishdetailComponent implements OnInit {
     this.commentOb = this.commentForm.value;
     this.commentOb.date = new Date().toISOString();
     this.dishcopy.comments.push(this.commentOb);
+    // Calling save will determine whether to do PUT or POST accordingly
+    // put([queryParams, headers]): Does a put to the current element
+    // post(subElement, elementToPost, [queryParams, headers]): Does a POST and creates a subElement. 
+    // Subelement is mandatory and is the nested resource. Element to post is the object to post to the server
     this.dishcopy.save()
-      .subscribe(dish => this.dish = dish);
+      .subscribe(
+        dishcopy => {this.dish = dishcopy; this.dishcopy = dishcopy},
+        errmess => { this.dish = null; this.dishcopy = null; this.errMess = <any>errmess; }
+        );
     this.commentForm.reset({
       rating: 5,
       comment: '',

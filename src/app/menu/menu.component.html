@@ -1,6 +1,9 @@
+<!-- use @angular/flex-layout to lay out contents -->
+<!-- fxLayout: specify whether the various content in this div should be horizontally or vertically -->
+<!-- fxLayoutGap: contents will be separated with each ohter by 10 px -->
 <div class="container"
      fxLayout="column"
-     fxLayoutGap="10px">
+     fxLayoutGap="10px"> 
 
   <div fxFlex>
     <div>
@@ -9,16 +12,23 @@
     </div>
   </div>
 
+  <!-- Attribute fxFlex: this whole thing will be treated as one unit that they will be laid out by the flex layout here -->
+  <!-- ngIf: when dishes are not returned yet -->
   <div fxFlex *ngIf="dishes">
+      <!-- mat-grid-list: to create a grid list of itmes that I include into my template. From @angular/material/grid-list-->
       <mat-grid-list cols="2" rowHeight="200px">
+        <!-- structural directive ngFor: iterate over an array of items -->
+        <!-- '/dishdetail/:id' = ['/dishdetail', dish.id] -->
         <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]" appHighlight>
           <img height="200px" src="{{BaseURL + dish.image}}" alt={{dish.name}}>
           <mat-grid-tile-footer>
+            <!-- matLine: the use of the list @angular.material component -->
             <h3 matLine *ngIf="dish">{{dish.name | uppercase}}</h3>
           </mat-grid-tile-footer>
         </mat-grid-tile>
       </mat-grid-list>
   </div>
+  <!-- if dishes is not null, hide this div -->
   <div [hidden]="dishes || errMess" style="align-self: center; padding-top: 50px;">
     <mat-spinner style="margin-left: 30px;"></mat-spinner> <h4>Loading... Please Wait</h4>
   </div>

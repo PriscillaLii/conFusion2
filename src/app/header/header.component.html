@@ -1,5 +1,10 @@
+<!-- @angular/material/toolbar -->
 <mat-toolbar color="primary">
     <span><img src="/assets/images/logo.png" height=30 width=41></span>
+    <!-- attribute directive that the routing module provides for us called as routerLink -->
+    <!-- routerLinkActive allows us to apply some classes to the particular element here. -->
+    <!-- So, in this case, if this link becomes active than whatever I specify here, -->
+    <!-- will be applied as a class, which is active, to this particular item there. -->
     <a mat-button routerLink="/home" routerLinkActive="active"><span class="fa fa-home fa-lg"></span> Home</a>
     <a mat-button routerLink="/aboutus" routerLinkActive="active"><span class="fa fa-info fa-lg"></span> About</a>
     <a mat-button routerLink="/menu" routerLinkActive="active"><span class="fa fa-list fa-lg"></span> Menu</a>
@@ -16,7 +21,7 @@
       fxLayoutAlign.sm="start center" 
       fxLayoutAlign.gt-sm="center center" 
       fxLayoutGap="10px">
-  
+   
     <div fxFlex fxFlex.gt-sm="50%">
       <h1>Ristorante Con Fusion</h1>
       <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations

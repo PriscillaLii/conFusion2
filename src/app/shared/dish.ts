@@ -1,6 +1,8 @@
 import { Comment } from './comment';
 
+// this file is kinda like .h files in C++, is the definition of a class
 export class Dish {
+    // Typescript makes it possible to use strong typing
     id: number;
     name: string;
     image: string;
